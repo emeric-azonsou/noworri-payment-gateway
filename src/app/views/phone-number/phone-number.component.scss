@@ -1,0 +1,104 @@
+#card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(40%);
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 3px 3px #00000029;
+        .im {
+            margin-top: -30px;
+            display: flex;
+            justify-content: center;
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 30px;
+            }
+        }
+        .card-header {
+            background-color: white;
+            h6 {
+                font-size: 12px;
+                text-align: center;
+                font-family: "Segoe UI";
+                font-weight: 600;
+                color: #000000;
+                opacity: 1;
+                letter-spacing: 0px;
+            }
+        }
+        .card-body {
+            background-color: #f1f6ff;
+            .form-label {
+                font-size: small;
+                display: flex;
+                justify-content: center;
+                font-family: "Segoe UI";
+                font-weight: 600;
+                color: #000000;
+                opacity: 1;
+                letter-spacing: 0px;
+                margin-top: 20px;
+                margin-bottom: 15px;
+            }
+            .input-group {
+                position: relative;
+                left: 36px;
+                span {
+                    background-color: white;
+                    border: 1px solid #8e8e8e;
+                }
+                input {
+                    border: 1px solid #8e8e8e;
+                    border-left-color: white;
+                    border-radius: 3px;
+                }
+            }
+        }
+        .button {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            button {
+                background-color: #497dd5;
+                border-radius: 5px;
+                font-family: "Segoe UI";
+                font-weight: 600;
+                color: #000000;
+                opacity: 1;
+                letter-spacing: 0px;
+                margin-top: 20px;
+                margin-bottom: 15px;
+                font-size: small;
+                color: #ffffff;
+            }
+        }
+    }
+}
+:host {
+    display: block;
+    background-color: #f1f6ff;
+    height: 100vh;
+   
+}
+.footer-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 100%;
+    transform: translateY(500%);
+    button {
+        background-color: #000000;
+        font-family: "Segoe UI";
+        font-weight: 600;
+        color: #000000;
+        opacity: 1;
+        letter-spacing: 0px;
+        font-size: small;
+        color: #ffffff;
+        margin-top: 6px;
+        border-color: #f1f6ff;
+    }
+}

@@ -1,0 +1,85 @@
+#card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(60%);
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 3px 3px #00000029;
+        .im {
+            margin-top: -30px;
+            display: flex;
+            justify-content: center;
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 30px;
+            }
+        }
+        .card-header {
+            background-color: white;
+            h6 {
+                font-size: 12px;
+                text-align: center;
+                font-family: "Segoe UI";
+                font-weight: 700;
+                color: #000000;
+                opacity: 1;
+                letter-spacing: 0px;
+            }
+        }
+        .card-body {
+            background-color: #f1f6ff;
+             
+            .otp-input{
+                display: flex;
+                justify-content: center;
+                margin-left: 38px;
+                margin-top: 20px;
+            }
+        }
+        .button {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            button {
+                background-color: #497dd5;
+                border-radius: 5px;
+                font-family: "Segoe UI";
+                font-weight: 600;
+                color: #000000;
+                opacity: 1;
+                letter-spacing: 0px;
+                margin-top: 20px;
+                margin-bottom: 15px;
+                font-size: small;
+                color: #ffffff;
+            }
+        }
+    }
+}
+:host {
+    display: block;
+    background-color: #f1f6ff;
+    height: 100vh;
+}
+.footer-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 100%;
+    transform: translateY(600%);
+    button {
+        background-color: #000000;
+        font-family: "Segoe UI";
+        font-weight: 600;
+        color: #000000;
+        opacity: 1;
+        letter-spacing: 0px;
+        font-size: small;
+        color: #ffffff;
+        margin-top: 6px;
+        border-color: #f1f6ff;
+    }
+}
