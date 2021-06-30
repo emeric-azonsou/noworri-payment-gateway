@@ -39,7 +39,8 @@ export class PhoneVerificationComponent implements OnInit,  OnDestroy {
     private loader: NgxUiLoaderService
   ) {
     this.user_api_key = sessionStorage.getItem(USER_API_KEY) as string;
-    const data = JSON.parse(sessionStorage.getItem(USER_DATA_KEY) as string);
+    const user = sessionStorage.getItem(USER_DATA_KEY) as string
+    const data = user ? JSON.parse(user) : undefined;
     this.userData = data;
   }
 

@@ -29,7 +29,7 @@ const routes: Routes = [
     component: OtpToProceedComponent
   },
   {
-    path: 'empty',
+    path: 'download-app',
     component: EmptyUserPageComponent
   }
 

@@ -112,9 +112,10 @@ export class PhoneNumberComponent implements OnInit, OnDestroy {
             this.loader.stop();
             this.hasError = true;
             this.errorMessage = response['message'];
+            sessionStorage.setItem(USER_DATA_KEY, `${this.user_phone}`)
             setTimeout(() => {
-              this.router.navigate(['create']);
-            }, 4000);
+              this.router.navigate(['/download-app'])
+            }, 3000)
           }
         });
     } else {

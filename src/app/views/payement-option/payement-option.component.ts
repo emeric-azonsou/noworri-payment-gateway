@@ -5,7 +5,14 @@ import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { BUSINESS_DATA_KEY, ORDER_DATA_KEY, PAYMENT_DATA_KEY, TRANSACTION_DATA_KEY, USER_API_KEY, USER_DATA_KEY } from 'src/app/models/constants';
+import {
+  BUSINESS_DATA_KEY,
+  ORDER_DATA_KEY,
+  PAYMENT_DATA_KEY,
+  TRANSACTION_DATA_KEY,
+  USER_API_KEY,
+  USER_DATA_KEY,
+} from 'src/app/models/constants';
 import { MobileMoney, PaymentData } from 'src/app/models/payment.interface';
 import { PaymentService } from 'src/app/services/payment.service';
 
@@ -46,7 +53,8 @@ export class PayementOptionComponent implements OnInit {
   checkoutData: any;
   businessData: any;
   orderData: any;
-  api_key:string;
+  api_key: string;
+  paymentStatus: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -54,19 +62,19 @@ export class PayementOptionComponent implements OnInit {
     private location: Location,
     private loader: NgxUiLoaderService
   ) {
-    const paymentData = sessionStorage.getItem(PAYMENT_DATA_KEY) as string;
-    const orderData = sessionStorage.getItem(ORDER_DATA_KEY) as string;
+    const paymentData = sessionStorage.getItem(PAYMENT_DATA_KEY);
+    const orderData = JSON.stringify(sessionStorage.getItem(ORDER_DATA_KEY));
     const userDataString = sessionStorage.getItem(USER_DATA_KEY) as string;
-    const checkout = sessionStorage.getItem(TRANSACTION_DATA_KEY)as string;
-    const businessData = JSON.parse(
-      sessionStorage.getItem(BUSINESS_DATA_KEY) as string
-    );
-    this.checkoutData = JSON.parse(checkout);
-    this.userData = JSON.parse(userDataString)
-    this.paymentData = JSON.parse(paymentData);
+    const checkout = sessionStorage.getItem(TRANSACTION_DATA_KEY);
+    const business = JSON.stringify(sessionStorage.getItem(BUSINESS_DATA_KEY));
+    const key = JSON.stringify(sessionStorage.getItem(USER_API_KEY));
+    const businessData = JSON.parse(business);
+    this.checkoutData = JSON.parse(checkout as string);
+    this.userData = JSON.parse(userDataString);
+    this.paymentData = JSON.parse(paymentData as string);
     this.businessData = businessData;
     this.orderData = JSON.parse(orderData);
-    this.api_key = JSON.parse(sessionStorage.getItem(USER_API_KEY) as string)
+    this.api_key = key ? JSON.parse(key) : undefined;
     if (this.paymentData?.currency === 'GHS' || !this.paymentData?.currency) {
       this.country = 'Ghana';
     } else {
@@ -76,9 +84,9 @@ export class PayementOptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.userPP =
-    this.userData.photo === null
-      ? 'assets/checkout/profilPhotoAnimation.gif'
-      : `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
+      this.userData.photo === null
+        ? 'assets/checkout/profilPhotoAnimation.gif'
+        : `https://noworri.com/api/public/uploads/images/pp/${this.userData?.photo}`;
 
     this.getBankList(this.country);
     this.setUpForm();
@@ -105,22 +113,22 @@ export class PayementOptionComponent implements OnInit {
 
     const mobileMoney: MobileMoney = {
       provider: this.paymentForm.value['provider'],
-      phone: this.paymentForm.value['mobileMoneyNumber']
-    }
-    const data = {... this.paymentData};
+      phone: this.paymentForm.value['mobileMoneyNumber'],
+    };
+    const data = { ...this.paymentData };
     data.mobile_money = mobileMoney;
 
     this.paymentService
       .processPayment(data, this.userData.user_uid)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        if(response &&  response.status === true) {
+        if (response && response.status === true) {
           this.reference = response.data.reference;
+          this.paymentStatus = response.data.status;
           this.checkSuccessSecuredFunds(this.reference);
-
         } else {
           this.hasError = true;
-          this.errorMessage = response.message;  
+          this.errorMessage = response.message;
         }
         return response;
       }),
@@ -134,17 +142,21 @@ export class PayementOptionComponent implements OnInit {
   }
 
   checkSuccessSecuredFunds(ref: string | undefined) {
-    this.paymentService
-      .checkTransactionStatus(ref)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((statusData) => {
-        if (statusData.data && statusData.data.status === 'success') {
-          this.createTransaction();
-        } else {
-          this.loader.stop();
-          this.hasError = true;
-          this.errorMessage = statusData.message;        }
-      });
+    if (this.paymentStatus === 'pay_offline') {
+      setTimeout(() => {
+        this.paymentService
+          .checkTransactionStatus(ref)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((statusData) => {
+            console.log('status.data', statusData);
+            if (statusData.data && statusData.data.status === 'success') {
+              this.createTransaction();
+            } else {
+              this.checkSuccessSecuredFunds(statusData.data.reference);
+            }
+          });
+      }, 5000);
+    }
   }
 
   createTransaction() {
@@ -153,7 +165,11 @@ export class PayementOptionComponent implements OnInit {
     this.checkoutData['name'] = this.businessData.trading_name;
     this.checkoutData['items'] = this.paymentData;
     this.paymentService
-      .createTransaction(this.checkoutData, this.api_key, this.isTestTransaction)
+      .createTransaction(
+        this.checkoutData,
+        this.api_key,
+        this.isTestTransaction
+      )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transaction: any) => {
@@ -161,7 +177,7 @@ export class PayementOptionComponent implements OnInit {
             this.loader.stop();
             const paymentData = this.paymentData;
             const order = JSON.stringify(paymentData);
-            const callbackUrl = `${this.checkoutData.callback_url}?reference=${this.reference}&order_id=${this.checkoutData.order_id}&order-data=${order}`
+            const callbackUrl = `${this.checkoutData.callback_url}?reference=${this.reference}&order_id=${this.checkoutData.order_id}&order-data=${order}`;
             window.location.replace(callbackUrl);
           } else {
             this.loader.stop();
@@ -171,6 +187,8 @@ export class PayementOptionComponent implements OnInit {
         },
         (error) => {
           this.loader.stop();
+          this.hasError = true;
+          this.errorMessage = error.message;
           console.error(error.message);
         }
       );
@@ -192,7 +210,7 @@ export class PayementOptionComponent implements OnInit {
       });
   }
 
-  get isTestTransaction(): boolean{
+  get isTestTransaction(): boolean {
     return this.api_key.includes('test');
   }
 }
