@@ -9,7 +9,7 @@
         <div class="card-body">
             <form>
                 <label class="form-label">Verify your phone number to proceed</label>
-                <label class="form-label">(+233544990518)</label>
+                <label class="form-label">({{ userData?.mobile_phone }})</label>
                 <div class="container">
                     <div class="col-10 otp-input">
                         <ng-otp-input [config]="{length:5}"></ng-otp-input>

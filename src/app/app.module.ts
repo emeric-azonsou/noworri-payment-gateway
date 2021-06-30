@@ -12,7 +12,9 @@ import { EmptyUserPageComponent } from './views/empty-user-page/empty-user-page.
 import { HeaderComponent } from './views/header/header.component';
 import { NgOtpInputModule } from  'ng-otp-input';
 import { IntlTelInputNgModule } from 'intl-tel-input-ng';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 
 @NgModule({
@@ -30,9 +32,11 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     NgOtpInputModule,
+    HttpClientModule,
     IntlTelInputNgModule.forRoot(),
-    FormsModule
-
+    FormsModule,
+    ReactiveFormsModule,
+    NgxUiLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

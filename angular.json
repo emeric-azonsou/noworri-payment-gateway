@@ -113,5 +113,8 @@
       }
     }
   },
-  "defaultProject": "noworri-payment-gateway"
+  "defaultProject": "noworri-payment-gateway",
+  "cli": {
+    "analytics": false
+  }
 }

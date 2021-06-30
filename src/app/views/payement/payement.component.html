@@ -1,10 +1,10 @@
 <div id="card">
     <div class="card  carte" style="width: 25rem;">
         <div class="im">
-            <img src="assets\header\index.jpg" class="card-img-top" alt="...">
+            <img src="{{ userPP }}" class="card-img-top" alt="...">
         </div>
         <div class="card-header">
-            <h6>Hi Joelle 👋, Noworri is going to lock your cash you can log in into your Noworri app to release the
+            <h6>Hey {{ userData?.first_name }} 👋🏾, Noworri is going to lock your cash you can log in into your Noworri app to release the
                 money once you approve the delivery</h6>
         </div>
         <div class="card-body">
@@ -12,11 +12,11 @@
             <div class="card small-card">
                 <div class="card-body">
                     <h6 class="net-paya">Net payable</h6>
-                    <h6 class="total">450.00 <span>GHS</span></h6>
-                    <h6 class="fee">Noworri fee : 1.25</h6>
+                    <h6 class="total">{{ amount }} <span>{{ paymentData?.currency }}</span></h6>
+                    <h6 class="fee">Noworri fee : {{ noworriFee }}</h6>
                 </div>
             </div>
-            <div class="container content">
+            <!-- <div class="container content">
                 <h6 class="your-drop">Your drop up address</h6>
                 <h6 class="adress">24, Gvr Street, Wc building 1st floor <span><i (click)='onDisplayInput()'
                             class="bi bi-pencil"></i></span></h6>
@@ -29,7 +29,7 @@
                 </div>
 
 
-            </div>
+            </div> -->
             <div class="button">
                 <button type="button" class="btn btn-primary" data-bs-toggle="button" (click)='onProccedPayement()'
                     autocomplete="off">

@@ -17,7 +17,7 @@ const routes: Routes = [
     component: PhoneVerificationComponent
   },
   {
-    path: 'payements',
+    path: 'process-payment',
     component: PayementComponent
   },
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
     component: OtpToProceedComponent
   },
   {
-    path: 'empty',
+    path: 'download-app',
     component: EmptyUserPageComponent
   }
 
