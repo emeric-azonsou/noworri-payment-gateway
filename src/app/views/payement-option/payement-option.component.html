@@ -1,34 +1,39 @@
 <div id="card">
     <div class="card" style="width: 23rem;">
         <div class="im">
-            <img src="assets\header\index.jpg" class="card-img-top" alt="...">
+            <img src="{{ userPP }}" class="card-img-top" alt="...">
         </div>
         <div class="card-header">
-            <h6><span><i class="bi bi-arrow-left"></i></span>    Choose your payment option</h6>
+            <h6><span><i (click)="goBack()" class="bi bi-arrow-left"></i></span>set your mobile wallet</h6>
         </div>
         <div class="card-body">
-            <form>
+            <form [formGroup]="paymentForm">
               
                 <div class="container">
                     <div class="col-10">
                         <div class="row select">
-                            <select class="form-select" aria-label="Default select example">
-                                <option value="1">MTN</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select formControlName="provider" class="form-select" aria-label="Default select example">
+                                <option class="text-xs text-gray-300" [value]="" selected>Select Provider</option>
+                                <option *ngFor="let provider of networkList" class="text-xs text-gray-300" [value]="provider.code">
+                                    {{ provider.name }}
+                                    <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
+                                  </option>
                               </select>
                         </div>
                        <div class="row">
                         <div class="input-group">
-                            <input type="text" placeholder="0544990518" class="form-control">
+                            <input formControlName="mobileMoneyNumber" type="text" placeholder="0544990518" class="form-control">
                         </div>
                        </div>
                     </div>
                 </div>
                 <div class="button">
                     <button type="button" class="btn btn-primary" (click)='onLockFund()' data-bs-toggle="button" autocomplete="off">
-                        Proceed to lock funds</button>
+                        Lock funds</button>
                 </div>
+                <p *ngIf="hasError" class="alert alert-danger" role="alert">
+                    {{ errorMessage }}
+                </p>
             </form>
         </div>
     </div>

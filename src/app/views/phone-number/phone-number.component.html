@@ -1,42 +1,58 @@
 <div id="card">
-    <div class="card" style="width: 23rem;">
-        <div class="im">
-            <img src="assets\header\index.jpg" class="card-img-top" alt="...">
-        </div>
-        <div class="card-header">
-            <h6>Pay Seller after you approve delivery</h6>
-        </div>
-        <div class="card-body">
-            <form>
-                <label class="form-label">Enter your phone number to proceed</label>
-                <div class="container">
-                    <div class="col-10">
-                        <div class="input-group">
-                            <form #form="ngForm">
-                                <intl-tel-input [name]="'my-name'" [cssClass]="'form-control'"
-                                    [labelCssClass]="'col-sm-2 col-form-label'" [required]="true" [options]="{
-                                        preferredCountries: ['gh'],
-                                        
-                                        onlyCountries: ['gh', 'ng']
-                                    }" [onlyLocalized]="true"></intl-tel-input>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="button">
-                    <button type="button" (click)='onSubmitNumber()' class="btn btn-primary" 
-                    data-bs-toggle="button" autocomplete="off">Get First &
-                        Pay with Noworri</button>
-                </div>
-            </form>
-        </div>
+  <div class="card" style="width: 23rem">
+    <div class="im">
+      <img src="{{ businessLogo }}" class="card-img-top" alt="..." />
     </div>
+    <div class="card-header">
+      <h6>Pay Seller after you approve delivery</h6>
+    </div>
+    <div class="card-body">
+      <form>
+        <label class="form-label">Enter your phone number to proceed</label>
+        <div class="container">
+          <div class="col-10">
+            <div class="input-group">
+              <form #form="ngForm">
+                <intl-tel-input
+                  [name]="'userPhone'"
+                  [cssClass]="'form-control'"
+                  [labelCssClass]="'col-sm-2 col-form-label'"
+                  [required]="true"
+                  [options]="{
+                    preferredCountries: ['gh'],
+
+                    onlyCountries: ['gh', 'ng']
+                  }"
+                  [onlyLocalized]="true"
+                ></intl-tel-input>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <button
+            type="button"
+            (click)="onProceed(form)"
+            class="btn btn-primary"
+            data-bs-toggle="button"
+            autocomplete="off"
+          >
+            Get First & Pay with Noworri
+          </button>
+        </div>
+        <div *ngIf="hasError" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 <div class="container footer-button">
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn btn-primary"> <i class="bi bi-file-lock2-fill"></i> Secure by
-                Noworri</button>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary">
+        <i class="bi bi-file-lock2-fill"></i> Secure by Noworri
+      </button>
     </div>
+  </div>
 </div>

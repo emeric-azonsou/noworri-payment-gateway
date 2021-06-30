@@ -1,6 +1,6 @@
 {
   "name": "noworri-payment-gateway",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -26,14 +26,16 @@
     "intl-tel-input-ng": "^0.4.0",
     "ng-otp-input": "^1.7.1",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-ui-loader": "^11.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.0.4",
+    "@angular-devkit/build-angular": "^12.0.5",
     "@angular/cli": "~12.0.4",
     "@angular/compiler-cli": "~12.0.4",
+    "@schematics/angular": "^12.1.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.7.0",

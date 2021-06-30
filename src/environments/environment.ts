@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url: `https://api.noworri.com/api/`,
+  payStackCheckoutUrl: `https://api.noworri.com/api/securewithnoworritest`,
+  checkTransactionStatusUrl: `https://api.noworri.com/api/verifybusinessclientspayment`,
+  checkNoworripaymentUrl : `https://api.noworri.com/api/checknoworricheckoutpaymentstatus`,
+  addAccountUrl: `https://api.noworri.com/api/adduseraccounttest/`,
+  deleteAccountUrl: `https://api.noworri.com/api/deleteduseraccounttest`,
+  createBusinessTransactionUrl: `https://api.noworri.com/api/createbusinesstransactiontest`,
+  sendVerificationCodeUrl: `https://api.noworri.com/api/sendverificationcodetest`
 };
 
 /*

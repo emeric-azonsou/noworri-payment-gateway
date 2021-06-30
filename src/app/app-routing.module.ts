@@ -17,7 +17,7 @@ const routes: Routes = [
     component: PhoneVerificationComponent
   },
   {
-    path: 'payements',
+    path: 'process-payment',
     component: PayementComponent
   },
   {
