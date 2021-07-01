@@ -6,7 +6,7 @@
     transform: translateY(30%);
     .card {
         border-radius: 10px;
-        box-shadow: 0px 3px 3px #00000029;
+        box-shadow: 0px 0px 0px #4d4d4d29;
         .im {
             margin-top: -30px;
             display: flex;
@@ -15,6 +15,19 @@
                 width: 50px;
                 height: 50px;
                 border-radius: 30px;
+            }
+            .profil {
+                width: 50px;
+                display: flex;
+                justify-content: center;
+                height: 50px;
+                align-items: center;
+                border-radius: 30px;
+                background-color: #EEF1FF;
+                i {
+                    color: #497dd5;
+                    font-size: 30px;
+                }
             }
         }
         .card-header {
@@ -43,7 +56,7 @@
                 margin-top: 20px;
                 margin-bottom: 15px;
             }
-            .otp-input{
+            .otp-input {
                 display: flex;
                 justify-content: center;
                 margin-left: 38px;
@@ -79,7 +92,7 @@
     justify-content: center;
     align-items: center;
     top: 100%;
-    transform: translateY(400%);
+    transform: translateY(370%);
     button {
         background-color: #000000;
         font-family: "Segoe UI";

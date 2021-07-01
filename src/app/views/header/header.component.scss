@@ -16,16 +16,20 @@
             position: relative;
             bottom: 6px;
             .im1 {
-                width: 20px;
+                width: 23px;
                 margin: 10px;
                 border-radius: 10px;
                 cursor: pointer;
+                border: 1px solid #888888;
+                padding: 2px;
             }
             .im2 {
-                position: relative;
-                width: 20px;
+                width: 23px;
+                margin: 10px;
                 border-radius: 10px;
                 cursor: pointer;
+                border: 1px solid #888888;
+                padding: 2px;
             }
         }
         .im {
@@ -40,8 +44,7 @@
         }
        
         .wht-noworri {
-            display: flex;
-            justify-content: end;
+           
             font-family: "Segoe UI";
             font-weight: 700;
             font-size: 12px;
@@ -53,6 +56,12 @@
             position: relative;
             bottom: 6px;
         }
+    }
+}
+
+.wha{
+    h6{
+      text-align: end;
     }
 }
 // responssive//@at-root

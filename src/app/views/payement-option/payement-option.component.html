@@ -4,7 +4,8 @@
             <img src="{{ userPP }}" class="card-img-top" alt="...">
         </div>
         <div class="card-header">
-            <h6><span><i (click)="goBack()" class="bi bi-arrow-left"></i></span>set your mobile wallet</h6>
+            
+            <h6><span><i (click)="goBack()" class="bi bi-arrow-left-short"></i></span>Choose your payment option</h6>
         </div>
         <div class="card-body">
             <form [formGroup]="paymentForm">
@@ -16,7 +17,7 @@
                                 <option class="text-xs text-gray-300" [value]="" selected>Select Provider</option>
                                 <option *ngFor="let provider of networkList" class="text-xs text-gray-300" [value]="provider.code">
                                     {{ provider.name }}
-                                    <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
+                                    <!-- <h4 class="text-xs text-gray-300">{{ bank.name }}</h4> -->
                                   </option>
                               </select>
                         </div>
