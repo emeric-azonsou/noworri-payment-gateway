@@ -11,7 +11,8 @@ export const environment = {
   addAccountUrl: `https://api.noworri.com/api/adduseraccounttest/`,
   deleteAccountUrl: `https://api.noworri.com/api/deleteduseraccounttest`,
   createBusinessTransactionUrl: `https://api.noworri.com/api/createbusinesstransactiontest`,
-  sendVerificationCodeUrl: `https://api.noworri.com/api/sendverificationcodetest`
+  sendVerificationCodeUrl: `https://api.noworri.com/api/sendverificationcodetest`,
+  verifyPaymentOTPUrl: `https://api.noworri.com/api/submitotptest`,
 };
 
 /*

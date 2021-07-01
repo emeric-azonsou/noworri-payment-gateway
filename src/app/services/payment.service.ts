@@ -137,6 +137,19 @@ export class PaymentService {
     );
   }
 
+  verifyPaymentOTP(data:any) {
+    const url = environment.verifyPaymentOTPUrl;
+    return this.http.post(url, data).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error: ', error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
   checkTransactionStatus(ref: string | undefined, credentials: string = '') {
     const url = `${environment.checkNoworripaymentUrl}/${ref}`;
     let header = new HttpHeaders();

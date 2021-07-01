@@ -16,22 +16,22 @@
                     <h6 class="fee">Noworri fee : {{ noworriFee }}</h6>
                 </div>
             </div>
-            <!-- <div class="container content">
-                <h6 class="your-drop">Your drop up address</h6>
-                <h6 class="adress">24, Gvr Street, Wc building 1st floor <span><i (click)='onDisplayInput()'
+            <div class="container content">
+                <h6 class="your-drop">Your delivery address</h6>
+                <h6 class="adress">{{ address }} <span><i (click)='toggleChangeAddress()'
                             class="bi bi-pencil"></i></span></h6>
 
 
-                <div class="row g-3 align-items-center" *ngIf=' hasDisplayInput'>
+                <div class="row g-3 align-items-center" *ngIf='isChangingAddress'>
                     <div class="col-auto">
-                        <input type="text" class="form-control">
+                        <input type="text" [(ngModel)]='addressInput' class="form-control">
                     </div>
                 </div>
 
 
-            </div> -->
+            </div>
             <div class="button">
-                <button type="button" class="btn btn-primary" data-bs-toggle="button" (click)='onProccedPayement()'
+                <button type="button" class="btn btn-primary" data-bs-toggle="button" (click)='onProcced(addressInput)'
                     autocomplete="off">
                     {{buttonLabel}}</button>
             </div>
