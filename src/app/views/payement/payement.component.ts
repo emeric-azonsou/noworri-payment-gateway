@@ -42,7 +42,7 @@ export class PayementComponent implements OnInit, OnDestroy {
   hasDisplayInput=false;
   addressInput: any;
 
-  buttonLabel='Proceed to lock funds';
+  // buttonLabel='Proceed to lock funds';
 
   constructor(private router:Router,
     private loader: NgxUiLoaderService,
@@ -83,13 +83,13 @@ export class PayementComponent implements OnInit, OnDestroy {
 
   onDisplayInput(){
     this.hasDisplayInput=!this.hasDisplayInput
-    this.buttonLabel='update adress'
+    // this.buttonLabel='update adress'
   }
 
   onProcced(addressInput: string){
     if(addressInput) {
       this.loader.start();
-      this.changeDeliveryAddress(addressInput);
+      // this.changeDeliveryAddress(addressInput);
     } else {
       const transactionData = {...this.transactionData};
       transactionData.price = `${Math.round(this.totalPrice as number)}`;
@@ -147,7 +147,7 @@ export class PayementComponent implements OnInit, OnDestroy {
 
   toggleChangeAddress() {
     this.isChangingAddress = !this.isChangingAddress;
-    this.buttonLabel= !!this.isChangingAddress ? 'update adress' : 'Proceed to lock funds';
+    // this.buttonLabel= !!this.isChangingAddress ? 'update adress' : 'Proceed to lock funds';
   }
 
   changeDeliveryAddress(address: string) {
@@ -166,10 +166,10 @@ export class PayementComponent implements OnInit, OnDestroy {
           this.isChangingAddress = false;
           this.isUpdatingAddress = false;
           this.hasDisplayInput = false;
-          this.buttonLabel='Proceed to lock funds';
+          // this.buttonLabel='Proceed to lock funds';
         } else {
           this.isUpdatingAddress = false;
-          this.buttonLabel='Proceed to lock funds';
+          // this.buttonLabel='Proceed to lock funds';
           // do something here
         }
       });

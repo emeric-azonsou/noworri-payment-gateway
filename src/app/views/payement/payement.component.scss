@@ -6,7 +6,7 @@
     transform: translateY(20%);
     .carte {
         border-radius: 10px;
-        box-shadow: 0px 3px 3px #00000029;
+        box-shadow: 0px 0px 0px #4d4d4d29;
         .im {
             margin-top: -30px;
             display: flex;
@@ -27,22 +27,29 @@
                 color: #000000;
                 opacity: 1;
                 letter-spacing: 0px;
+                position: relative;
+                top: 4px;
+            }
+            .salut {
+                display: flex;
+                justify-content: center;
+                position: relative;
             }
         }
         .card-body {
             background-color: #f1f6ff;
             .small-card {
+                border: none;
                 .card-body {
-                    background: #ffffff;
-                    border-radius: 200px;
                     .net-paya {
                         font-family: "Segoe UI";
                         letter-spacing: 0px;
                         color: #000000;
                         opacity: 1;
                         text-align: center;
-                        font-weight: bold;
                         font-size: small;
+                        position: relative;
+                        bottom: 20px;
                     }
                     .total {
                         font-family: "Segoe UI";
@@ -50,13 +57,13 @@
                         color: #000000;
                         opacity: 1;
                         text-align: center;
-                        font-weight: bold;
-                        font-size: 25px;
+                        font-weight: 800;
+                        font-size: 50px;
                         position: relative;
-                        left: 10px;
+                        bottom: 30px;
                         span {
                             font-size: small;
-                            font-weight: 500;
+                            font-weight: 700;
                         }
                     }
 
@@ -67,7 +74,9 @@
                         opacity: 1;
                         text-align: center;
                         font-size: 10px;
-                        font-weight: 500;
+                        position: relative;
+                        bottom: 30px;
+                        font-weight: bold;
                     }
                 }
             }
@@ -79,32 +88,55 @@
                     color: #000000;
                     opacity: 1;
                     position: relative;
-                    top: 20px;
+                    bottom: 45px;
                     text-decoration: underline;
                     font-family: "Segoe UI";
                     font-size: small;
-                    font-weight: 500;
+                    font-weight: 600;
                 }
                 .adress {
                     text-align: center;
                     letter-spacing: 0px;
                     color: #000000;
                     opacity: 1;
-                    position: relative;
-                    top: 20px;
                     font-size: 14px;
                     font-weight: 300;
-                    span{
+                    position: relative;
+                    bottom: 40px;
+                    span {
                         color: #497dd5;
                         cursor: pointer;
                     }
                 }
+                .buttonGroup{
+                   position: relative;
+                   bottom: 35px;  
+                   .input-group-sm {
+                    display: flex;
+                    justify-content: center;
+                   
+                   }
+                   input{
+                      border: none;
+                      width: 200px;
+                      border-radius: 0px;
+                   }
+                   span{
+                       background-color: white;
+                       border: none;
+                       cursor: pointer;
+                       border-radius: 0px;
+                       color: #497DD5;
+                   }
+                 }
             }
         }
+
+        
         .button {
             display: flex;
             justify-content: center;
-            margin-top: 30px;
+           
             button {
                 background-color: #497dd5;
                 border-radius: 5px;
@@ -113,24 +145,21 @@
                 color: #000000;
                 opacity: 1;
                 letter-spacing: 0px;
-                margin-top: 20px;
-                margin-bottom: 15px;
                 font-size: small;
                 color: #ffffff;
+                position: relative;
+                bottom: 5px;
             }
         }
     }
 }
 
-.align-items-center{
+.align-items-center {
     display: flex;
     justify-content: center;
     position: relative;
     top: 20px;
 }
-
-
-
 
 :host {
     display: block;
