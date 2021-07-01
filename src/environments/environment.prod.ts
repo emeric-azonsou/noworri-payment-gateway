@@ -7,5 +7,6 @@ export const environment = {
   addAccountUrl: `https://api.noworri.com/api/adduseraccount/`,
   deleteAccountUrl: `https://api.noworri.com/api/deleteduseraccount`,
   createBusinessTransactionUrl: `https://api.noworri.com/api/createbusinesstransaction`,
-  sendVerificationCodeUrl: `https://api.noworri.com/api/sendverificationcode`
+  sendVerificationCodeUrl: `https://api.noworri.com/api/sendverificationcode`,
+  verifyPaymentOTPUrl: `https://api.noworri.com/api/submitotp`,
 };

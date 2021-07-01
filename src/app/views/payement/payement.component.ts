@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
@@ -12,7 +13,7 @@ import { PaymentService } from 'src/app/services/payment.service';
   templateUrl: './payement.component.html',
   styleUrls: ['./payement.component.scss']
 })
-export class PayementComponent implements OnInit {
+export class PayementComponent implements OnInit, OnDestroy {
   paymentData: PaymentData | undefined;
   transactionData: BusinessTransactionData;
   country: string | undefined;
@@ -39,6 +40,7 @@ export class PayementComponent implements OnInit {
   isUpdatingAddress = false;
   noworriFee: number | undefined;
   hasDisplayInput=false;
+  addressInput: any;
 
   buttonLabel='Proceed to lock funds';
 
@@ -84,17 +86,22 @@ export class PayementComponent implements OnInit {
     this.buttonLabel='update adress'
   }
 
-  onProccedPayement(){
-    const transactionData = {...this.transactionData};
-    transactionData.price = `${Math.round(this.totalPrice as number)}`;
-    const paymentData: PaymentData = {
-      email: this.userData.email,
-      amount: `${this.totalPrice}`,
-      currency: this.checkoutData.currency,
-      callback_url: `${window.location.href}`,
-    };
-    sessionStorage.setItem(PAYMENT_DATA_KEY, JSON.stringify(paymentData));
-    this.router.navigate(['/payement-option'])
+  onProcced(addressInput: string){
+    if(addressInput) {
+      this.loader.start();
+      this.changeDeliveryAddress(addressInput);
+    } else {
+      const transactionData = {...this.transactionData};
+      transactionData.price = `${Math.round(this.totalPrice as number)}`;
+      const paymentData: PaymentData = {
+        email: this.userData.email,
+        amount: `${this.totalPrice}`,
+        currency: this.checkoutData.currency,
+        callback_url: `${window.location.href}`,
+      };
+      sessionStorage.setItem(PAYMENT_DATA_KEY, JSON.stringify(paymentData));
+      this.router.navigate(['/payement-option'])
+    }
   }
 
   
@@ -140,6 +147,7 @@ export class PayementComponent implements OnInit {
 
   toggleChangeAddress() {
     this.isChangingAddress = !this.isChangingAddress;
+    this.buttonLabel= !!this.isChangingAddress ? 'update adress' : 'Proceed to lock funds';
   }
 
   changeDeliveryAddress(address: string) {
@@ -152,12 +160,16 @@ export class PayementComponent implements OnInit {
       .updateUserAddress(data, this.api_key)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
+        this.loader.stop();
         if (response && response.status === true) {
           this.address = response.address;
           this.isChangingAddress = false;
           this.isUpdatingAddress = false;
+          this.hasDisplayInput = false;
+          this.buttonLabel='Proceed to lock funds';
         } else {
           this.isUpdatingAddress = false;
+          this.buttonLabel='Proceed to lock funds';
           // do something here
         }
       });

@@ -25,7 +25,7 @@ const routes: Routes = [
     component: PayementOptionComponent
   },
   {
-    path: "otp-to-proceed",
+    path: "otp-to-proceed/:reference",
     component: OtpToProceedComponent
   },
   {

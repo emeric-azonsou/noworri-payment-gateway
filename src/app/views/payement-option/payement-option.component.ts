@@ -156,6 +156,8 @@ export class PayementOptionComponent implements OnInit {
             }
           });
       }, 5000);
+    } else{
+      this.router.navigate([`/otp-to-proceed/${this.reference}`]);
     }
   }
 
