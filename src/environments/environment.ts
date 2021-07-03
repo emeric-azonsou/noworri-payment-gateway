@@ -7,7 +7,7 @@ export const environment = {
   url: `https://api.noworri.com/api/`,
   payStackCheckoutUrl: `https://api.noworri.com/api/securewithnoworritest`,
   checkTransactionStatusUrl: `https://api.noworri.com/api/verifybusinessclientspayment`,
-  checkNoworripaymentUrl : `https://api.noworri.com/api/checknoworricheckoutpaymentstatus`,
+  checkNoworripaymentUrl : `https://api.noworri.com/api/checknoworricheckoutpaymentstatustest`,
   addAccountUrl: `https://api.noworri.com/api/adduseraccounttest/`,
   deleteAccountUrl: `https://api.noworri.com/api/deleteduseraccounttest`,
   createBusinessTransactionUrl: `https://api.noworri.com/api/createbusinesstransactiontest`,

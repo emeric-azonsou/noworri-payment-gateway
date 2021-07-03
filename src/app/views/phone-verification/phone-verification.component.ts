@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -32,6 +33,8 @@ export class PhoneVerificationComponent implements OnInit,  OnDestroy {
     },
   };
   userData: any;
+  hasPP: boolean;
+  userPP: string | undefined;
 
   constructor(
     private router: Router,
@@ -42,6 +45,12 @@ export class PhoneVerificationComponent implements OnInit,  OnDestroy {
     const user = sessionStorage.getItem(USER_DATA_KEY) as string
     const data = user ? JSON.parse(user) : undefined;
     this.userData = data;
+    if(this.userData.photo) {
+      this.userPP =  `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
+      this.hasPP = true;
+    } else {
+      this.hasPP = false;
+    }
   }
 
   ngOnInit(): void {}

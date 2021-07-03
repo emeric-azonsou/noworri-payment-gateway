@@ -41,8 +41,7 @@ export class PayementComponent implements OnInit, OnDestroy {
   noworriFee: number | undefined;
   hasDisplayInput=false;
   addressInput: any;
-
-  // buttonLabel='Proceed to lock funds';
+  hasPP: boolean;
 
   constructor(private router:Router,
     private loader: NgxUiLoaderService,
@@ -64,14 +63,15 @@ export class PayementComponent implements OnInit, OnDestroy {
 
     const data =  sessionStorage.getItem(TRANSACTION_DATA_KEY) as string;
     this.transactionData = JSON.parse(data);
+    if(this.userData.photo) {
+      this.userPP =  `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
+      this.hasPP = true;
+    } else {
+      this.hasPP = false;
+    }
   }
 
   ngOnInit(): void {
-    this.userPP =
-      this.userData.photo === null
-        ? 'assets/checkout/profilPhotoAnimation.gif'
-        : `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
-
     this.businessLogo =
       this.businessData.business_logo === null
         ? 'assets/checkout/profilPhotoAnimation.gif'
@@ -83,14 +83,9 @@ export class PayementComponent implements OnInit, OnDestroy {
 
   onDisplayInput(){
     this.hasDisplayInput=!this.hasDisplayInput
-    // this.buttonLabel='update adress'
   }
 
-  onProcced(addressInput: string){
-    if(addressInput) {
-      this.loader.start();
-      // this.changeDeliveryAddress(addressInput);
-    } else {
+  onProcced(){
       const transactionData = {...this.transactionData};
       transactionData.price = `${Math.round(this.totalPrice as number)}`;
       const paymentData: PaymentData = {
@@ -101,7 +96,6 @@ export class PayementComponent implements OnInit, OnDestroy {
       };
       sessionStorage.setItem(PAYMENT_DATA_KEY, JSON.stringify(paymentData));
       this.router.navigate(['/payement-option'])
-    }
   }
 
   
@@ -147,7 +141,6 @@ export class PayementComponent implements OnInit, OnDestroy {
 
   toggleChangeAddress() {
     this.isChangingAddress = !this.isChangingAddress;
-    // this.buttonLabel= !!this.isChangingAddress ? 'update adress' : 'Proceed to lock funds';
   }
 
   changeDeliveryAddress(address: string) {
@@ -161,15 +154,12 @@ export class PayementComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         this.loader.stop();
+        this.isUpdatingAddress = false;
         if (response && response.status === true) {
           this.address = response.address;
           this.isChangingAddress = false;
-          this.isUpdatingAddress = false;
           this.hasDisplayInput = false;
-          // this.buttonLabel='Proceed to lock funds';
         } else {
-          this.isUpdatingAddress = false;
-          // this.buttonLabel='Proceed to lock funds';
           // do something here
         }
       });
