@@ -33,7 +33,7 @@ export class PhoneVerificationComponent implements OnInit,  OnDestroy {
     },
   };
   userData: any;
-  hasPP: boolean;
+  // hasPP: boolean;
   userPP: string | undefined;
 
   constructor(
@@ -45,12 +45,12 @@ export class PhoneVerificationComponent implements OnInit,  OnDestroy {
     const user = sessionStorage.getItem(USER_DATA_KEY) as string
     const data = user ? JSON.parse(user) : undefined;
     this.userData = data;
-    if(this.userData.photo) {
-      this.userPP =  `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
-      this.hasPP = true;
-    } else {
-      this.hasPP = false;
-    }
+    // if(this.userData.photo) {
+    //   this.userPP =  `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
+    //   this.hasPP = true;
+    // } else {
+    //   this.hasPP = false;
+    // }
   }
 
   ngOnInit(): void {}

@@ -30,8 +30,10 @@ export class PaymentService {
     );
   }
 
-  processPayment(paymentData: any, user_id: string) {
-    const url = environment.payStackCheckoutUrl;
+  processPayment(paymentData: any, user_id: string, isTestTransaction: boolean ) {
+    const url = isTestTransaction === true
+      ? 'https://api.noworri.com/api/securewithnoworritest'
+      : environment.payStackCheckoutUrl;
     let header = new HttpHeaders();
     header = header.append('Authorization', `Bearer ${user_id}`);
     // let params = new HttpParams();
@@ -59,7 +61,7 @@ export class PaymentService {
   createTransaction(transactionDetails:any, credentials: string, isTestTransaction:boolean) {
     let header = new HttpHeaders();
     header = header.append('Authorization', credentials);
-    const url = isTestTransaction
+    const url = isTestTransaction === true
       ? 'https://api.noworri.com/api/createbusinesstransactiontest'
       : environment.createBusinessTransactionUrl;
     if (!transactionDetails.deadline || !transactionDetails.revision) {
@@ -150,10 +152,12 @@ export class PaymentService {
     );
   }
 
-  checkTransactionStatus(ref: string | undefined, credentials: string = '') {
-    const url = `${environment.checkNoworripaymentUrl}/${ref}`;
+  checkTransactionStatus(ref: string | undefined, user_id: string, isTestTransaction: boolean) {
+    const url = isTestTransaction === true
+      ? `https://api.noworri.com/api/checknoworricheckoutpaymentstatustest/${ref}`
+      : `${environment.checkNoworripaymentUrl}/${ref}`;
     let header = new HttpHeaders();
-    header = header.append('Authorization', credentials);
+    header = header.append('Authorization', `Bearer ${user_id}`);
     return this.http.get(url, { responseType: 'json', headers: header }).pipe(
       map((response: any) => {
         return response;

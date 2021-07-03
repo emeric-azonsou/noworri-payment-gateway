@@ -93,7 +93,7 @@ export class OtpToProceedComponent implements OnInit {
   checkSuccessSecuredFunds(ref: string | undefined) {
       setTimeout(() => {
         this.paymentService
-          .checkTransactionStatus(ref)
+          .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((statusData) => {
             console.log('status.data', statusData);
