@@ -16,6 +16,19 @@
                 height: 50px;
                 border-radius: 30px;
             }
+            .profil {
+                width: 50px;
+                display: flex;
+                justify-content: center;
+                height: 50px;
+                align-items: center;
+                border-radius: 30px;
+                background-color: #EEF1FF;
+                i {
+                    color: #497dd5;
+                    font-size: 30px;
+                }
+            }
         }
         .card-header {
             background-color: white;

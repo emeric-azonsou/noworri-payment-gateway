@@ -1,57 +1,86 @@
 <div id="card">
-    <div class="card" style="width: 23rem;">
-        <div *ngIf="hasPP" class="im">
-            <img src="{{ userPP }}" class="card-img-top" alt="...">
-            <!-- c'est le profil qui va s'afficher par defaut si le vrai profil n'existe pas   -->
-         <div *ngIf="!hasPP" class="profil">
-            <i class="bi bi-person"></i>
-         </div>
-        </div>
-        <div class="card-header">
-            
-            <h6><span><i (click)="goBack()" class="bi bi-arrow-left-short"></i></span>{{ headerText }}</h6>
-        </div>
-        <div class="card-body">
-            <form [formGroup]="paymentForm">
-              
-                <div class="container">
-                    <div class="col-10">
-                        <div class="row select">
-                            <select formControlName="provider" class="form-select" aria-label="Default select example">
-                                <option class="text-xs text-gray-300" [value]="" selected>Select Provider</option>
-                                <option *ngFor="let provider of networkList" class="text-xs text-gray-300" [value]="provider.code">
-                                    {{ provider.name }}
-                                    <!-- <h4 class="text-xs text-gray-300">{{ bank.name }}</h4> -->
-                                  </option>
-                              </select>
-                        </div>
-                       <div class="row">
-                        <div class="input-group">
-                            <input formControlName="mobileMoneyNumber" type="text" placeholder="0544990518" class="form-control">
-                        </div>
-                        <div class="input-group">
-                            <p *ngIf="isTestTransaction" class="alert alert-warning" role="alert">
-                                This is a test payment number and provider.
-                            </p>
-                        </div>
-                       </div>
-                    </div>
-                </div>
-                <div class="button">
-                    <button type="button" class="btn btn-primary" (click)='onLockFund()' data-bs-toggle="button" autocomplete="off">
-                        Lock funds</button>
-                </div>
-                <p *ngIf="hasError" class="alert alert-danger" role="alert">
-                    {{ errorMessage }}
-                </p>
-            </form>
-        </div>
+  <div class="card" style="width: 23rem">
+    <div class="im">
+      <img *ngIf="hasPP" src="{{ userPP }}" class="card-img-top" alt="..." />
+      <!-- c'est le profil qui va s'afficher par defaut si le vrai profil n'existe pas   -->
+      <div *ngIf="!hasPP" class="profil">
+        <i class="bi bi-person"></i>
+      </div>
     </div>
+    <div class="card-header">
+      <h6>
+        <span><i (click)="goBack()" class="bi bi-arrow-left-short"></i></span
+        >{{ headerText }}
+      </h6>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="paymentForm">
+        <div class="container">
+          <div class="col-10">
+            <div class="row select">
+              <select
+                formControlName="provider"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option class="text-xs text-gray-300" [value]="" selected>
+                  Select Provider
+                </option>
+                <option
+                  *ngFor="let provider of networkList"
+                  class="text-xs text-gray-300"
+                  [value]="provider.code"
+                >
+                  {{ provider.name }}
+                  <!-- <h4 class="text-xs text-gray-300">{{ bank.name }}</h4> -->
+                </option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="input-group">
+                <input
+                  formControlName="mobileMoneyNumber"
+                  type="text"
+                  placeholder="0544990518"
+                  class="form-control"
+                />
+              </div>
+              <div class="input-group">
+                <p
+                  *ngIf="isTestTransaction"
+                  class="alert alert-warning"
+                  role="alert"
+                >
+                  This is a test payment number and provider.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="onLockFund()"
+            data-bs-toggle="button"
+            autocomplete="off"
+          >
+            Lock funds
+          </button>
+        </div>
+        <p *ngIf="hasError" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </p>
+      </form>
+    </div>
+  </div>
 </div>
 <div class="container footer-button">
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn btn-primary"> <i class="bi bi-file-lock2-fill"></i> Secure by Noworri</button>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary">
+        <i class="bi bi-file-lock2-fill"></i> Secure by Noworri
+      </button>
     </div>
+  </div>
 </div>

@@ -219,7 +219,7 @@ export class PayementComponent implements OnInit, OnDestroy {
 
   checkSuccessSecuredFunds(ref: string) {
     this.paymentService
-      .checkTransactionStatus(ref, this.api_key)
+      .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((statusData) => {
         if (statusData.data && statusData.data.status === 'success') {

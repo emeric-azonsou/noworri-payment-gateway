@@ -128,7 +128,7 @@ export class PayementOptionComponent implements OnInit {
     data.mobile_money = mobileMoney;
 
     this.paymentService
-      .processPayment(data, this.userData.user_uid)
+      .processPayment(data, this.userData.user_uid, this.isTestTransaction)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         if (response && response.status === true) {
@@ -155,7 +155,7 @@ export class PayementOptionComponent implements OnInit {
     if (this.paymentStatus === 'pay_offline') {
       setTimeout(() => {
         this.paymentService
-          .checkTransactionStatus(ref)
+          .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((statusData) => {
             console.log('status.data', statusData);
@@ -170,7 +170,7 @@ export class PayementOptionComponent implements OnInit {
       this.router.navigate([`/otp-to-proceed/${this.reference}`]);
     } else {
       this.paymentService
-      .checkTransactionStatus(ref)
+      .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((statusData) => {
         console.log('status.data', statusData);
