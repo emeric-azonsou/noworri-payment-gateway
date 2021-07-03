@@ -1,9 +1,9 @@
 <div id="card">
     <div class="card" style="width: 25rem;">
-        <div class="im">
-            <!-- <img src="assets\header\index.jpg" class="card-img-top" alt="..."> -->
+        <div *ngIf="hasPP" class="im">
+            <img src="{{ userPP }}" class="card-img-top" alt="...">
             <!-- c'est le profil qui va s'afficher par defaut si le vrai profil n'existe pas   -->
-         <div class="profil">
+         <div *ngIf="!hasPP" class="profil">
             <i class="bi bi-person"></i>
          </div>
         </div>

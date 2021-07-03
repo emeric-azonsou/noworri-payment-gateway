@@ -55,6 +55,10 @@ export class PayementOptionComponent implements OnInit {
   orderData: any;
   api_key: string;
   paymentStatus: any;
+  testMomo = '0551234987';
+  headerText: string  = 'Choose Your Provider';
+  initialPhoneInput: string = '';
+  hasPP: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -80,14 +84,19 @@ export class PayementOptionComponent implements OnInit {
     } else {
       this.country = 'Nigeria';
     }
+
+    if(this.userData.photo) {
+      this.userPP =  `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
+      this.hasPP = true;
+    } else {
+      this.hasPP = false;
+    }
   }
 
   ngOnInit(): void {
-    this.userPP =
-      this.userData.photo === null
-        ? 'assets/checkout/profilPhotoAnimation.gif'
-        : `https://noworri.com/api/public/uploads/images/pp/${this.userData?.photo}`;
 
+    this.headerText = this.isTestTransaction === true ? 'Test Payment' : this.headerText; 
+    this.initialPhoneInput = this.isTestTransaction === true ? this.testMomo : this.initialPhoneInput;
     this.getBankList(this.country);
     this.setUpForm();
   }
@@ -95,7 +104,7 @@ export class PayementOptionComponent implements OnInit {
   setUpForm() {
     this.paymentForm = this.formBuilder.group({
       mobileMoneyNumber: [
-        '',
+        this.initialPhoneInput,
         [Validators.required, Validators.pattern(this.digitsRegEx)],
       ],
       provider: [this.networkList[0].code, Validators.required],
@@ -128,7 +137,8 @@ export class PayementOptionComponent implements OnInit {
           this.checkSuccessSecuredFunds(this.reference);
         } else {
           this.hasError = true;
-          this.errorMessage = response.message;
+          this.loader.stop();
+          this.errorMessage = `${response.message}. ${response.data.message}`;
         }
         return response;
       }),
@@ -156,8 +166,22 @@ export class PayementOptionComponent implements OnInit {
             }
           });
       }, 5000);
-    } else{
+    } else if(this.paymentStatus === 'send_otp'){
       this.router.navigate([`/otp-to-proceed/${this.reference}`]);
+    } else {
+      this.paymentService
+      .checkTransactionStatus(ref)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((statusData) => {
+        console.log('status.data', statusData);
+        if (statusData.data && statusData.data.status === 'success') {
+          this.createTransaction();
+        } else {
+          this.loader.stop();
+          this.hasError = true;
+          this.errorMessage = `${statusData.message}.`;
+        }
+      });
     }
   }
 

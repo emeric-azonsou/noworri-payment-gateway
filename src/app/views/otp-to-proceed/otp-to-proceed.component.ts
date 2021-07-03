@@ -48,6 +48,7 @@ export class OtpToProceedComponent implements OnInit {
   api_key: string;
   paymentStatus: any;
   otp: any;
+  hasPP: boolean;
   constructor(
     route: ActivatedRoute,
     private router: Router,
@@ -74,6 +75,13 @@ export class OtpToProceedComponent implements OnInit {
       this.country = 'Ghana';
     } else {
       this.country = 'Nigeria';
+    }
+
+    if(this.userData.photo) {
+      this.userPP =  `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`;
+      this.hasPP = true;
+    } else {
+      this.hasPP = false;
     }
    }
 
