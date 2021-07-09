@@ -199,7 +199,7 @@ export class PayementOptionComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transaction: any) => {
-          if (transaction) {
+          if (transaction && transaction.status === true) {
             this.loader.stop();
             const paymentData = this.paymentData;
             const order = JSON.stringify(paymentData);
@@ -208,7 +208,7 @@ export class PayementOptionComponent implements OnInit {
           } else {
             this.loader.stop();
             this.hasError = true;
-            this.errorMessage = 'Something went wrong';
+            this.errorMessage = 'Something went wrong please try again or contact Noworri support team';
           }
         },
         (error) => {
