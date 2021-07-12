@@ -77,7 +77,7 @@ export class PayementOptionComponent implements OnInit {
     this.userData = JSON.parse(userDataString);
     this.paymentData = JSON.parse(paymentData as string);
     this.businessData = businessData;
-    this.orderData = JSON.parse(orderData);
+    this.orderData = JSON.parse(JSON.parse(orderData));
     this.api_key = key ? JSON.parse(key) : undefined;
     if (this.paymentData?.currency === 'GHS' || !this.paymentData?.currency) {
       this.country = 'Ghana';
@@ -158,7 +158,6 @@ export class PayementOptionComponent implements OnInit {
           .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((statusData) => {
-            console.log('status.data', statusData);
             if (statusData.data && statusData.data.status === 'success') {
               this.createTransaction();
             } else {
