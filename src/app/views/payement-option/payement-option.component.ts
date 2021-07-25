@@ -77,7 +77,7 @@ export class PayementOptionComponent implements OnInit {
     this.userData = JSON.parse(userDataString);
     this.paymentData = JSON.parse(paymentData as string);
     this.businessData = businessData;
-    this.orderData = JSON.parse(orderData);
+    this.orderData = JSON.parse(JSON.parse(orderData));
     this.api_key = key ? JSON.parse(key) : undefined;
     if (this.paymentData?.currency === 'GHS' || !this.paymentData?.currency) {
       this.country = 'Ghana';
@@ -97,7 +97,7 @@ export class PayementOptionComponent implements OnInit {
 
     this.headerText = this.isTestTransaction === true ? 'Test Payment' : this.headerText; 
     this.initialPhoneInput = this.isTestTransaction === true ? this.testMomo : this.initialPhoneInput;
-    this.getBankList(this.country);
+    // this.getBankList(this.country);
     this.setUpForm();
   }
 
@@ -158,7 +158,6 @@ export class PayementOptionComponent implements OnInit {
           .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((statusData) => {
-            console.log('status.data', statusData);
             if (statusData.data && statusData.data.status === 'success') {
               this.createTransaction();
             } else {
@@ -189,7 +188,7 @@ export class PayementOptionComponent implements OnInit {
     this.checkoutData['payment_id'] = this.reference;
     this.checkoutData['price'] = Number(this.paymentData?.amount).toFixed(2);
     this.checkoutData['name'] = this.businessData.trading_name;
-    this.checkoutData['items'] = this.paymentData;
+    this.checkoutData['items'] = this.orderData;
     this.paymentService
       .createTransaction(
         this.checkoutData,
@@ -199,16 +198,16 @@ export class PayementOptionComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transaction: any) => {
-          if (transaction) {
+          if (transaction && transaction.status === true) {
             this.loader.stop();
-            const paymentData = this.paymentData;
-            const order = JSON.stringify(paymentData);
+            const orderData = this.orderData;
+            const order = JSON.stringify(orderData);
             const callbackUrl = `${this.checkoutData.callback_url}?reference=${this.reference}&order_id=${this.checkoutData.order_id}&order-data=${order}`;
             window.location.replace(callbackUrl);
           } else {
             this.loader.stop();
             this.hasError = true;
-            this.errorMessage = 'Something went wrong';
+            this.errorMessage = 'Something went wrong please try again or contact Noworri support team';
           }
         },
         (error) => {
