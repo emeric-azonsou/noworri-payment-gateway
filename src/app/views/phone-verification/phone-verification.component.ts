@@ -67,8 +67,11 @@ export class PhoneVerificationComponent implements OnInit,  OnDestroy {
 
   onSubmitCode() {
     this.loader.start();
+    const data  = {
+      code: this.otp
+    }
     this.paymentService
-      .verifyUser(this.otp, this.user_api_key)
+      .verifyUser(data, this.user_api_key)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
         if (response['status'] === 200) {

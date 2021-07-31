@@ -16,13 +16,16 @@
                 <label class="form-label">({{ userData?.mobile_phone }})</label>
                 <div class="container">
                     <div class="col-10 otp-input">
-                        <ng-otp-input [config]="{length:5}"></ng-otp-input>
+                        <ng-otp-input  (onInputChange)="onOtpChange($event)" [config]="{length:5}"></ng-otp-input>
                     </div>
                 </div>
                 <div class="button">
                     <button type="button" (click)='onSubmitCode()' class="btn btn-primary" data-bs-toggle="button" autocomplete="off">
                         Verify & proceed
                     </button>
+                </div>
+                <div *ngIf="hasError" class="alert alert-danger" role="alert">
+                    {{ errorMessage }}
                 </div>
             </form>
         </div>
