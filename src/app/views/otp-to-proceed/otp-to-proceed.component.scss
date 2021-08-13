@@ -48,14 +48,16 @@
             .otp-input{
                 display: flex;
                 justify-content: center;
-                margin-left: 38px;
-                margin-top: 20px;
+                margin-left: 10px;
+                margin-top: 5px;
             }
         }
         .button {
             display: flex;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding: 10px;
             button {
                 background-color: #497dd5;
                 border-radius: 5px;
@@ -64,7 +66,7 @@
                 color: #000000;
                 opacity: 1;
                 letter-spacing: 0px;
-                margin-top: 20px;
+                margin-top: 10px;
                 margin-bottom: 15px;
                 font-size: small;
                 color: #ffffff;
@@ -82,7 +84,8 @@
     justify-content: center;
     align-items: center;
     top: 100%;
-    transform: translateY(370%);
+    transform: translateY(280%);
+    margin-top: 120px;
     button {
         background-color: #000000;
         font-family: "Segoe UI";

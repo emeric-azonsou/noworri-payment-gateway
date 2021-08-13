@@ -3,7 +3,8 @@ export interface PaymentData {
     amount: string | null | undefined;
     currency: string | null;
     mobile_money?: MobileMoney;
-    callback_url?: string
+    callback_url?: string;
+    price: string | null | undefined;
   };
 
 export interface MobileMoney {

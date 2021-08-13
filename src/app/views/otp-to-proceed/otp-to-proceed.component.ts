@@ -56,7 +56,7 @@ export class OtpToProceedComponent implements OnInit {
     private loader: NgxUiLoaderService
   ) {
     route.params.pipe(take(1)).subscribe((param) => {
-      this.reference = param.transactionKey;
+      this.reference = param.reference;
     });
     const paymentData = sessionStorage.getItem(PAYMENT_DATA_KEY);
     const orderData = JSON.stringify(sessionStorage.getItem(ORDER_DATA_KEY));
@@ -96,7 +96,6 @@ export class OtpToProceedComponent implements OnInit {
           .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((statusData) => {
-            console.log('status.data', statusData);
             if (statusData.data && statusData.data.status === 'success') {
               this.createTransaction();
             } else {
