@@ -131,13 +131,13 @@ export class PayementOptionComponent implements OnInit {
       .processPayment(data, this.userData.user_uid, this.isTestTransaction)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
+        this.loader.stop();
         if (response && response.status === true) {
           this.reference = response.data.reference;
           this.paymentStatus = response.data.status;
           this.checkSuccessSecuredFunds(this.reference);
         } else {
           this.hasError = true;
-          this.loader.stop();
           this.errorMessage = `${response.message}. ${response.data.message}`;
         }
         return response;
@@ -172,7 +172,6 @@ export class PayementOptionComponent implements OnInit {
       .checkTransactionStatus(ref, this.userData.user_uid, this.isTestTransaction)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((statusData) => {
-        console.log('status.data', statusData);
         if (statusData.data && statusData.data.status === 'success') {
           this.createTransaction();
         } else {
@@ -184,9 +183,19 @@ export class PayementOptionComponent implements OnInit {
     }
   }
 
+  getNoworriFee(price: any): number {
+    const fee = ((price / 100) * 1).toFixed(2);
+    return Number(fee);
+  }
+
+  getAmount(price: any) {
+    const sum = Number(price) - this.getNoworriFee(price);
+    return Number(sum.toFixed(2));
+  }
+
   createTransaction() {
     this.checkoutData['payment_id'] = this.reference;
-    this.checkoutData['price'] = Number(this.paymentData?.amount).toFixed(2);
+    this.checkoutData['price'] = Number(this.paymentData?.price).toFixed(2);
     this.checkoutData['name'] = this.businessData.trading_name;
     this.checkoutData['items'] = this.orderData;
     this.paymentService

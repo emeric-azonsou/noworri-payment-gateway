@@ -85,14 +85,15 @@ export class PayementComponent implements OnInit, OnDestroy {
     this.hasDisplayInput=!this.hasDisplayInput
   }
 
-  onProcced(){
+  onProceed(){
       const transactionData = {...this.transactionData};
       transactionData.price = `${Math.round(this.totalPrice as number)}`;
       const paymentData: PaymentData = {
         email: this.userData.email,
-        amount: `${this.totalPrice}`,
+        amount: `${this.amount}`,
         currency: this.checkoutData.currency,
         callback_url: `${window.location.href}`,
+        price: `${this.totalPrice}`
       };
       sessionStorage.setItem(PAYMENT_DATA_KEY, JSON.stringify(paymentData));
       this.router.navigate(['/payement-option'])
@@ -203,7 +204,7 @@ export class PayementComponent implements OnInit, OnDestroy {
     this.isSecuring = true;
     const transactionData = {
       email: this.userData.email,
-      amount: Math.round(this.totalPrice as number),
+      amount: this.amount,
       currency: this.checkoutData.currency,
       callback_url: `${window.location.href}`,
     };
@@ -252,7 +253,7 @@ export class PayementComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          console.log(error.message);
+          console.error(error.message);
         }
       );
   }
