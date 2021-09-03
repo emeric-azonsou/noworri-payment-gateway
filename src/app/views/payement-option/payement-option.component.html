@@ -9,8 +9,6 @@
     </div>
     <div class="card-header">
       <h6>
-        <span><i (click)="goBack()" class="bi bi-arrow-left-short"></i></span
-        >{{ headerText }}
       </h6>
     </div>
     <div class="card-body">
@@ -18,19 +16,11 @@
         <div class="container">
           <div class="col-10">
             <div class="row select">
-              <select
-                formControlName="provider"
-                class="form-select"
-                aria-label="Default select example"
-              >
+              <select formControlName="provider" class="form-select" aria-label="Default select example">
                 <option class="text-xs text-gray-300" [value]="" selected>
                   Select Provider
                 </option>
-                <option
-                  *ngFor="let provider of networkList"
-                  class="text-xs text-gray-300"
-                  [value]="provider.code"
-                >
+                <option *ngFor="let provider of networkList" class="text-xs text-gray-300" [value]="provider.code">
                   {{ provider.name }}
                   <!-- <h4 class="text-xs text-gray-300">{{ bank.name }}</h4> -->
                 </option>
@@ -38,19 +28,10 @@
             </div>
             <div class="row">
               <div class="input-group">
-                <input
-                  formControlName="mobileMoneyNumber"
-                  type="text"
-                  placeholder="0544990518"
-                  class="form-control"
-                />
+                <input formControlName="mobileMoneyNumber" type="text" placeholder="0544990518" class="form-control" />
               </div>
               <div class="input-group">
-                <p
-                  *ngIf="isTestTransaction"
-                  class="alert alert-warning"
-                  role="alert"
-                >
+                <p *ngIf="isTestTransaction" class="alert alert-warning" role="alert">
                   This is a test payment number and provider.
                 </p>
               </div>
@@ -58,14 +39,9 @@
           </div>
         </div>
         <div class="button">
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="onLockFund()"
-            data-bs-toggle="button"
-            autocomplete="off"
-          >
-            Lock funds
+          <button type="button" class="btn btn-primary" (click)="onLockFund()" data-bs-toggle="button"
+            autocomplete="off">
+            Pay With Insurance
           </button>
         </div>
         <p *ngIf="hasError" class="alert alert-danger" role="alert">
@@ -79,7 +55,7 @@
   <div class="row">
     <div class="col-12">
       <button type="button" class="btn btn-primary">
-        <i class="bi bi-file-lock2-fill"></i> Secured by Noworri
+        <i class="bi bi-file-lock2-fill"></i> Insured by Noworri
       </button>
     </div>
   </div>

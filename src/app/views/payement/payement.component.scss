@@ -47,6 +47,7 @@
                 display: flex;
                 justify-content: center;
                 position: relative;
+                color: #000000;
             }
         }
         .card-body {
@@ -74,6 +75,7 @@
                         font-size: 50px;
                         position: relative;
                         bottom: 30px;
+                        left: 16px;
                         span {
                             font-size: small;
                             font-weight: 700;
